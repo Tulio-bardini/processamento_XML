@@ -1,27 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "tag_validator.h"
+
 using namespace std;
 
 int main() {
 
     char xmlfilename[100];
-    string line;
 
     std::cin >> xmlfilename;  // entrada
 
-    ifstream myfile(xmlfilename);
-
-    if (myfile.is_open())
-    {
-        while (getline(myfile,line))
-        {
-            cout << line << '\n';
-        }
-        myfile.close();
-    }
-
-    else cout << "Unable to open file";
+    xml::tag_validator(xmlfilename);
 
     /*
      
