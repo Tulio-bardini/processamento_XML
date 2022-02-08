@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "tag_validator.h"
 
 using namespace std;
@@ -11,15 +12,14 @@ int main() {
 
     std::cin >> xmlfilename;  // entrada
 
-    if (not xml::tag_validator(xmlfilename)) {
+    std::ifstream file(xmlfilename);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string xml_contents = buffer.str();
+
+    if (not xml::tag_validator(xml_contents)) {
         std::cout << "error\n";
     }
-
-    /*
-     
-       COLOQUE SEU CODIGO AQUI
-    
-    */
 
     return 0;
 }

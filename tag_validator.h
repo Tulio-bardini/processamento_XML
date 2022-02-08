@@ -2,7 +2,7 @@
 #define XML_TAG_VALIDATOR_H
 
 namespace xml {
-    bool tag_validator(const char* file_name);
+    bool tag_validator(const std::string xml_contents);
 }  // namespace structures
 
 #endif
