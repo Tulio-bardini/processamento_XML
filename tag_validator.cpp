@@ -8,19 +8,14 @@ namespace xml {
 
         structures::ArrayStack<std::string> tags;
 
-        char tag[20];
         for (auto i = 0; i < xml_contents.length(); i++) {
 
             if (xml_contents[i] == '<') {
-                std::size_t final_tag = xml_contents.find_first_of('>', i);
+                std::size_t tag_ending_pos = xml_contents.find_first_of('>', i);
                 
-                auto tag_length = int(final_tag) - i - 1;
-                
-                std::size_t length = xml_contents.copy(tag,tag_length,i+1);
+                auto tag_length = tag_ending_pos - i - 1;
 
-                tag[length] = '\0';
-                
-                std::string str_tag = tag;
+                std::string str_tag = xml_contents.substr(i+1, tag_length);
 
                 if (str_tag[0] == '/') {
                     
@@ -35,7 +30,7 @@ namespace xml {
                     tags.push(str_tag);
                 }
 
-                i + final_tag;
+                i = tag_ending_pos;
             }
         }
         return tags.empty();
