@@ -11,7 +11,9 @@ int main() {
 
     std::cin >> xmlfilename;  // entrada
 
-    xml::tag_validator(xmlfilename);
+    if (not xml::tag_validator(xmlfilename)) {
+        std::cout << "error\n";
+    }
 
     /*
      

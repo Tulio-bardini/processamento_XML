@@ -4,7 +4,7 @@
 #include "tag_validator.h"
 
 namespace xml {
-    void tag_validator(const char* file_name) {
+    bool tag_validator(const char* file_name) {
 
         structures::ArrayStack<std::string> tags;
 
@@ -29,20 +29,25 @@ namespace xml {
                         tag[length] = '\0';
                         
                         std::string str_tag = tag;
-                        
-                        if (str_tag[0] == '/') {
 
+                        if (str_tag[0] == '/') {
+                            
                             str_tag = str_tag.substr(1);
-                            if (tags.top() == str_tag) {
+                            if (tags.empty() || tags.top() != str_tag) {
+                                myfile.close();
+                                return false;
+                            } else {
                                 tags.pop();
                             }
+
                         } else {
                             tags.push(str_tag);
                         }
                     }
                 }
             }
-            myfile.close();
         }
+        myfile.close();
+        return tags.empty();
     }
 }
