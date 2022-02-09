@@ -6,7 +6,8 @@ namespace xml {
 
     std::string get_value(const std::string start_tag,
                         const std::string end_tag,
-                        const std::string xml_contents);
+                        const std::string xml_contents,
+                        int referrence);
 }  // namespace structures
 
 #endif
