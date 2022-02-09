@@ -3,6 +3,10 @@
 
 namespace xml {
     bool tag_validator(const std::string xml_contents);
+
+    std::string get_value(const std::string start_tag,
+                        const std::string end_tag,
+                        const std::string xml_contents);
 }  // namespace structures
 
 #endif

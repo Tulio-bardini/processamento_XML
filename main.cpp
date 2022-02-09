@@ -21,5 +21,8 @@ int main() {
         std::cout << "error\n";
     }
 
+    std::string teste = xml::get_value("<height>", "</height>", xml_contents);
+    cout << teste;
+    
     return 0;
 }

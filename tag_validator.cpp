@@ -35,4 +35,24 @@ namespace xml {
         }
         return tags.empty();
     }
+
+    std::string get_value(const std::string start_tag,
+                        const std::string end_tag,
+                        const std::string xml_contents) {
+
+        std::string tag_value;
+        for (auto i = 0; i < xml_contents.length(); i++) {
+            
+            auto tag_length = start_tag.length();
+
+            std::size_t start_position_1 = xml_contents.find(start_tag, i) + tag_length;
+            std::size_t start_position_2 = xml_contents.find(end_tag, i);
+
+            tag_value = xml_contents.substr(start_position_1, start_position_2 - start_position_1);
+
+            i = start_position_2 + end_tag.length();
+
+        }
+        return tag_value;
+    }
 }
