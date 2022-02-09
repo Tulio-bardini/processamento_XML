@@ -21,23 +21,20 @@ int main() {
         std::cout << "error\n";
     }
 
-    std::size_t i = 0;
+    std::size_t i = 11;
     while (i < xml_contents.length()) {
 
         std::string image =  xml::get_value("<img>", "</img>", xml_contents, i);
 
-        std::string name =  xml::get_value("<name>", "</name>", xml_contents, i);
+        std::string name = xml::get_value("<name>", "</name>", xml_contents, i);
         std::string height = xml::get_value("<height>", "</height>", xml_contents, i);
         std::string width = xml::get_value("<width>", "</width>", xml_contents, i);
         std::string data = xml::get_value("<data>", "</data>", xml_contents, i);
 
-        i += image.length() + 6;
+        i += image.length() + 14;
+        if (i >= xml_contents.length()) break;
 
-        cout << name << "\n";
-        cout << height << "\n";
-        cout << width << "\n";
-        cout << data << "\n";
     }
-    
+
     return 0;
 }
