@@ -4,6 +4,12 @@
 #include "tag_validator.h"
 
 namespace xml {
+
+    // Implementação o algortimo de validação das tags. 
+    // Esse algoritmo se utiliza de uma pilha para descobrir se todas as Tags estão corretamente 
+    // indentadas. Quando há uma Tag de abertura (<) ela é colocada na pilha, já quando é passado 
+    // uma tag de fechamento (>) ela procura seu complemento na pilha e caso encontre o desempilha.
+
     bool tag_validator(const std::string xml_contents) {
 
         structures::ArrayStack<std::string> tags;
@@ -35,6 +41,10 @@ namespace xml {
         }
         return tags.empty();
     }
+
+    // Implementa a busca dos valores referentes as tags passadas, encontrando
+    // a posição do primeiro e último elemento da Tag, e posteriormente retornando
+    // esse pedaço específico da String
 
     std::string get_value(const std::string start_tag,
                         const std::string end_tag,
