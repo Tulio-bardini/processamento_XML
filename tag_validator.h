@@ -8,6 +8,6 @@ namespace xml {
                         const std::string end_tag,
                         const std::string xml_contents,
                         int referrence);
-}  // namespace structures
+}  // namespace xml
 
 #endif

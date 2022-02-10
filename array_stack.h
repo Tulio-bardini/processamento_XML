@@ -1,4 +1,3 @@
-// Copyright [2021] <Patrícia Bardini Arigoni>
 #ifndef STRUCTURES_ARRAY_STACK_H
 #define STRUCTURES_ARRAY_STACK_H
 
