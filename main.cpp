@@ -20,25 +20,26 @@ int main() {
 
     if (not xml::tag_validator(xml_contents)) {
         std::cout << "error\n";
+    } else {
+        std::size_t i = 11;
+        while (i < xml_contents.length()) {
+
+            std::string image =  xml::get_value("<img>", "</img>", xml_contents, i);
+
+            std::string name = xml::get_value("<name>", "</name>", xml_contents, i);
+            std::string height = xml::get_value("<height>", "</height>", xml_contents, i);
+            std::string width = xml::get_value("<width>", "</width>", xml_contents, i);
+            std::string data = xml::get_value("<data>", "</data>", xml_contents, i);
+
+            i += image.length() + 14;
+            if (i >= xml_contents.length()) break;
+
+            int label = counter::component_counter(width, height, data);
+            cout << name << ' ' << label << '\n';
+
+        }
     }
-
-    std::size_t i = 11;
-    while (i < xml_contents.length()) {
-
-        std::string image =  xml::get_value("<img>", "</img>", xml_contents, i);
-
-        std::string name = xml::get_value("<name>", "</name>", xml_contents, i);
-        std::string height = xml::get_value("<height>", "</height>", xml_contents, i);
-        std::string width = xml::get_value("<width>", "</width>", xml_contents, i);
-        std::string data = xml::get_value("<data>", "</data>", xml_contents, i);
-
-        i += image.length() + 14;
-        if (i >= xml_contents.length()) break;
-
-        int label = counter::component_counter(width, height, data);
-        cout << label << '\n';
-
-    }
+    
 
     return 0;
 }

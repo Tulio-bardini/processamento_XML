@@ -12,7 +12,7 @@ namespace counter {
 
         int width;
         int height;
-        width = std::stoi(width_s);
+        width = std::stoi(width_s) + 1;
         height = std::stoi(height_s);
 
         structures::ArrayQueue<std::tuple<int, int>> pixel_queue{10000};
@@ -32,8 +32,8 @@ namespace counter {
                     int i = std::get<0>(main_coordinate);
                     int j = std::get<1>(main_coordinate);
 
-                    if (i > 0 && data_s[(i-1) * width + j] == '1' && matrix_R[(i-1) * width + j] == 0) {
-                        matrix_R[(i-1) * width + j] = label;
+                    if (i > 0 && data_s[(i - 1) * width + j] == '1' && matrix_R[(i - 1) * width + j] == 0) {
+                        matrix_R[(i - 1) * width + j] = label;
                         pixel_queue.enqueue(std::make_tuple(i - 1, j));
                     }
 
@@ -42,8 +42,8 @@ namespace counter {
                         pixel_queue.enqueue(std::make_tuple(i, j - 1));
                     }
 
-                    if (i < height - 1 && data_s[(i+1) * width + j] == '1' && matrix_R[(i+1) * width + j] == 0) {
-                        matrix_R[(i+1) * width + j] = label;
+                    if (i < height - 1 && data_s[(i + 1) * width + j] == '1' && matrix_R[(i + 1) * width + j] == 0) {
+                        matrix_R[(i + 1) * width + j] = label;
                         pixel_queue.enqueue(std::make_tuple(i + 1, j));
                     }
 
@@ -54,7 +54,7 @@ namespace counter {
 
                 }
 
-                if (color == '1' and matrix_R[x * width + y] == 0) {
+                if (color == '1' && matrix_R[x * width + y] == 0) {
 
                     label++;
                     pixel_queue.enqueue(std::make_tuple(x, y));
