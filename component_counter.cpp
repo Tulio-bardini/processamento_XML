@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include <tuple>
+#include <vector>
 #include "queue.h"
 #include "tag_validator.h"
 
@@ -15,10 +16,21 @@ namespace counter {
         width = std::stoi(width_s) + 1;
         height = std::stoi(height_s);
 
-        structures::ArrayQueue<std::tuple<int, int>> pixel_queue{10000};
+        structures::ArrayQueue<std::tuple<int, int>> pixel_queue{1000000};
 
-        int matrix_R[height * width] = {};
+        std::vector<std::vector<bool>> R_matrix;
+
+        for (int i = 0u; i < height; i++) {
+            std::vector<bool> line;
+
+            for (int j = 0; j < width; j++)
+                line.push_back(false);
+
+            R_matrix.push_back(line);
+        }
+
         int label = 0;
+        
 
         for (int x = 0; x < height; x++) {
             for (int y = 0; y < width; y++) {
@@ -32,33 +44,33 @@ namespace counter {
                     int i = std::get<0>(main_coordinate);
                     int j = std::get<1>(main_coordinate);
 
-                    if (i > 0 && data_s[(i - 1) * width + j] == '1' && matrix_R[(i - 1) * width + j] == 0) {
-                        matrix_R[(i - 1) * width + j] = label;
+                    if (i > 0 && data_s[(i - 1) * width + j] == '1' && not R_matrix[i - 1][j]) {
+                        R_matrix[i - 1][j] = true;
                         pixel_queue.enqueue(std::make_tuple(i - 1, j));
                     }
 
-                    if (j > 0 && data_s[i * width + j - 1] == '1' && matrix_R[i * width + j - 1] == 0) {
-                        matrix_R[i * width + j - 1] = label;
+                    if (j > 0 && data_s[i * width + j - 1] == '1' && not R_matrix[i][j - 1]) {
+                        R_matrix[i][j - 1] = true;
                         pixel_queue.enqueue(std::make_tuple(i, j - 1));
                     }
 
-                    if (i < height - 1 && data_s[(i + 1) * width + j] == '1' && matrix_R[(i + 1) * width + j] == 0) {
-                        matrix_R[(i + 1) * width + j] = label;
+                    if (i < height - 1 && data_s[(i + 1) * width + j] == '1' && not R_matrix[i + 1][j]) {
+                        R_matrix[i + 1][j] = true;
                         pixel_queue.enqueue(std::make_tuple(i + 1, j));
                     }
 
-                    if (j < width - 1 && data_s[i * width + j + 1] == '1' && matrix_R[i * width + j + 1] == 0) {
-                        matrix_R[i * width + j + 1] = label;
+                    if (j < width - 1 && data_s[i * width + j + 1] == '1' && not R_matrix[i][j+1]) {
+                        R_matrix[i][j + 1] = true;
                         pixel_queue.enqueue(std::make_tuple(i, j + 1));
                     }
 
                 }
 
-                if (color == '1' && matrix_R[x * width + y] == 0) {
+                if (color == '1' && R_matrix[x][y] == false) {
 
                     label++;
                     pixel_queue.enqueue(std::make_tuple(x, y));
-                    matrix_R[x * width + y] = label;
+                    R_matrix[x][y] = true;
 
                 }
             }
