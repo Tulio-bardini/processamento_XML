@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include "tag_validator.h"
+#include "component_counter.h"
 
 using namespace std;
 
@@ -33,6 +34,9 @@ int main() {
 
         i += image.length() + 14;
         if (i >= xml_contents.length()) break;
+
+        int label = counter::component_counter(width, height, data);
+        cout << label << '\n';
 
     }
 

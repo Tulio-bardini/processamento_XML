@@ -18,7 +18,7 @@ namespace counter {
         structures::ArrayQueue<std::tuple<int, int>> pixel_queue{10000};
 
         int matrix_R[height * width] = {};
-        int label = 1;
+        int label = 0;
 
         for (int x = 0; x < height; x++) {
             for (int y = 0; y < width; y++) {
@@ -56,11 +56,13 @@ namespace counter {
 
                 if (color == '1' and matrix_R[x * width + y] == 0) {
 
+                    label++;
                     pixel_queue.enqueue(std::make_tuple(x, y));
                     matrix_R[x * width + y] = label;
 
                 }
             }
-        }       
+        }    
+        return label;
     }
 }
