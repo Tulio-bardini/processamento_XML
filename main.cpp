@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include "tag_validator.h"
 #include "component_counter.h"
 
@@ -18,10 +19,12 @@ int main() {
     buffer << file.rdbuf();
     std::string xml_contents = buffer.str();
 
+    xml_contents.erase(std::remove(xml_contents.begin(), xml_contents.end(), '\n'), xml_contents.end());
+
     if (not xml::tag_validator(xml_contents)) {
         std::cout << "error\n";
     } else {
-        std::size_t i = 11;
+        std::size_t i = 9;
         while (i < xml_contents.length()) {
             
             std::string image =  xml::get_value("<img>", "</img>", xml_contents, i);
@@ -31,12 +34,11 @@ int main() {
             std::string width = xml::get_value("<width>", "</width>", xml_contents, i);
             std::string data = xml::get_value("<data>", "</data>", xml_contents, i);
 
-            i += image.length() + 14;
+            i += image.length() + 11;
             if (i >= xml_contents.length()) break;
 
             int label = counter::component_counter(width, height, data);
             cout << name << ' ' << label << '\n';
-
 
         }
     }

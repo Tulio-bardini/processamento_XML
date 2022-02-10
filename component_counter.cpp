@@ -13,7 +13,7 @@ namespace counter {
 
         int width;
         int height;
-        width = std::stoi(width_s) + 1;
+        width = std::stoi(width_s);
         height = std::stoi(height_s);
 
         structures::ArrayQueue<std::tuple<int, int>> pixel_queue{1000000};
